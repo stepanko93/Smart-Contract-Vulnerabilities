@@ -14,6 +14,7 @@ The vulnerability stems from an unchecked inflation of the global `rewardPerShar
  4. Impact: The inflated value exceeds type(uint128).max. SafeCast catches this and reverts the transaction (SafeCastOverflowedUintDowncast). Because _updateReward reverts, the entire contract is permanently paralyzed.
 
       🛠️ Proof of Concept (Foundry)
+    
 The included StakingExploit.t.sol file simulates the attack on a local Foundry environment.
 
 Steps to Reproduce:
@@ -22,6 +23,7 @@ Steps to Reproduce:
 3. Run the following command to execute the test and witness the forced revert:
  
    Bash
+   
 forge test --mt test_brickPool_safeCastOverflow -vvvv
 
 The test intentionally expects a revert to PASS, proving the Denial of Service is executable.
